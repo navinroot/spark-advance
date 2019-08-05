@@ -21,4 +21,6 @@ object MapOperation extends App{
 
   // check if a key is present
   println(m.contains("navin"))
+
+  println(m2.toSet.mkString(" "))
 }

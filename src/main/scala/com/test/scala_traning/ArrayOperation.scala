@@ -44,8 +44,8 @@ object ArrayOperation extends App {
 
   // sort all the elements of array
   println()
-  print("printing the sorted ArrayBuffer = ")
-  a.sorted.foreach(print)
+  print("printing the sorted in reverse order ArrayBuffer = ")
+  a.sorted(Ordering.Int.reverse).foreach(print)
 
 
 }

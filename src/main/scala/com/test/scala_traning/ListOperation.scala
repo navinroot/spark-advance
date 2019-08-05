@@ -58,7 +58,7 @@ object ListOperation extends App{
   // sort all the elements of array
   println()
   print("printing the sorted ListBuffer = ")
-  a.sorted.foreach(print)
+  a.sorted(Ordering.Int.reverse).foreach(print)
 
 
 

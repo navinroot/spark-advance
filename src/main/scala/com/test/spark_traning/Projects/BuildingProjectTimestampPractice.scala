@@ -24,7 +24,7 @@ object BuildingProjectTimestampPractice extends App {
     .withColumn("second", second('DateTime))
     .withColumn("twoDaySub", date_sub('DateTime, 2))
     .withColumn("twoMonthSub", add_months('DateTime, -2))
-    .withColumn("oneyearAdd", add_months('DateTime, 12))
+    .withColumn("oneYearAdd", add_months('DateTime, 12))
     .withColumn("addOneSecond", 'DateTime - expr("INTERVAL 1 YEARS"))
     .withColumn("addOneSecond", 'DateTime - expr("INTERVAL 1 MONTHS"))
     .withColumn("addOneSecond", 'DateTime - expr("INTERVAL 1 DAYS"))
@@ -37,7 +37,8 @@ object BuildingProjectTimestampPractice extends App {
 
   //filterBydate.show()
 
-  val filterByDateBetween = hvocDf.filter('DateTime.gt(lit("2013-06-01 00:00:01")) and 'DateTime.lt(lit("2013-06-03 00:00:01")))
+  val filterByDateBetween = hvocDf.filter('DateTime.gt(lit("2013-06-01 00:00:01"))
+    and 'DateTime.lt(lit("2013-06-03 00:00:01")))
 
 
   // FILTER DATE BY MAX DATE TO LAST 7 DAYS DATE  (MAX DATE = LAST MODIFIED DATE)
@@ -49,6 +50,11 @@ object BuildingProjectTimestampPractice extends App {
  // filterByLast7DaysFromLastModifiedDate.show()
 
 
+  // FILTER LAST 7 days data
+
+  val filerLast7DaysData = hvocDf.filter('DateTime.geq(current_date() - expr("INTERVAL 7 DAYS")))
+
+  filerLast7DaysData.show()
 
 
 
