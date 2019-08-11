@@ -55,11 +55,14 @@ object NestedJsonProcessing extends App {
 
   /**
     * parse internal json string using from json object
+   * and flatern deviceId
     */
 
   val eventJsonDS =  eventsDS.withColumn("jsonData",from_json('device, jsonSchema)).drop('device)
+    .withColumn("deviceId", $"jsonData.device_id")
 
-//  eventJsonDS.printSchema()
+  eventJsonDS.printSchema()
+  eventJsonDS.show()
 
 
   /**
@@ -72,7 +75,7 @@ object NestedJsonProcessing extends App {
     get_json_object('device, "$.device_type").alias("deviceType"))
 
 
-  eventJsonDS2.show()
+  // eventJsonDS2.show()
 
 
 

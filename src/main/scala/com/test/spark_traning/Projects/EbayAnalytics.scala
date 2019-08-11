@@ -1,8 +1,8 @@
 package com.test.spark_traning.Projects
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types.{FloatType, IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types._
 
 object EbayAnalytics extends App {
 
@@ -32,7 +32,7 @@ object EbayAnalytics extends App {
  // auctionDf.show()
 
   /**
-    * how many auction were help total
+   * how many auction were held total
     *
     */
   val auctionNum= auctionDf.select('auctionid).distinct()
@@ -52,9 +52,9 @@ object EbayAnalytics extends App {
     *  What's the min number of bids per item? what's the average? what's the max?
     */
 
-  val bidStates= auctionDf.groupBy('auctionid,'item).count.agg(min('count),max('count),avg('count))
+  val bidStates = auctionDf.groupBy('auctionid, 'item).count().agg(min('count), max('count), avg('count))
 
- // bidStates.show()
+  bidStates.show()
 
   /**
     *  Get the auctions with closing price > 100
@@ -92,6 +92,6 @@ object EbayAnalytics extends App {
   val top10Category = sfpdDf.select('Category).groupBy('Category).count()
                             .orderBy('count desc).limit(10)
 
-  top10Category.show()
+  //  top10Category.show()
 
 }

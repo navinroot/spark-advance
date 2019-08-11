@@ -27,10 +27,11 @@ object OlympicsProject extends App {
   //question 1 solution - (find the total medal won by each country)
  // totalMedalWonByEachCountyInSwimming.coalesce(1).write.option("header",true).csv("/home/navin/workspace/dataset/OTHERS/OLYMPICS/Q1Answer")
 
-  val totalMedalWonByIndiaYearWise = olymSummerDf.filter('Code ==="IND").select('Year,'Medal).groupBy('Year,'Medal).count()
+  val totalMedalWonByIndiaYearWise = olymSummerDf.filter('Code === "IND").select('Year, 'Medal)
+    .groupBy('Year, 'Medal).count()
     .withColumnRenamed("count","Medal won by india").orderBy('Year desc)
 
   //question 2 ( Find the number of medals that India won year wise. )
- // totalMedalWonByIndiaYearWise.show()
+  totalMedalWonByIndiaYearWise.show()
 
 }

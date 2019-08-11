@@ -28,9 +28,9 @@ object DatasetDemo extends App{
       :: Profile("Spark",9, "DevHunter"):: Nil
   ).as[Profile]
 
-  val pivitdf= df6.groupBy($"name").pivot("personId").count()
+  val pivotdf = df6.groupBy($"name").pivot("personId").count()
 
-  //pivitdf.show()
+  //pivotdf.show()
 
   val ds= spark.sparkContext.parallelize(Seq(1,2,3,4,5,6,7,8,9),2)
 
@@ -61,14 +61,12 @@ object DatasetDemo extends App{
     */
   case class Record(c1: String, c2: String)
   val data = List(Record("a", "b"), Record("b", "c"), Record("c", "d"))
-  val rdd = spark.sparkContext.parallelize(data)
+  val df8 = data.toDF("c1", "c2").as[Record]
   import spark.implicits._
 
-  val df8 = spark.createDataset(rdd).as[Record]
+  val df1 = df8.rdd.zipWithIndex() //.filter(x=> x._2 ==2)
 
- val df1= df8.rdd.zipWithIndex().filter(x=> x._2 ==2)
-
-//  df1.collect().foreach(println)
+  // df1.collect().foreach(println)
 
   //------------------- get sample data using pairRdd
 
@@ -103,7 +101,9 @@ val df9= spark.read
   //    .csv("/home/navin/workspace/intelliz-workspace/nestedArticture/src/main/scala/com/test/output")
 
   //---------------------------------------
-  val matches = spark.sparkContext.parallelize(Seq(Row(1, "John Wayne", "John Doe"), Row(2, "Ive Fish", "San Simon")))
+  val matches = spark.sparkContext.parallelize(Seq(
+    Row(1, "John Wayne", "John Doe"),
+    Row(2, "Ive Fish", "San Simon")))
 
   val players = spark.sparkContext.parallelize(Seq(
     Row("John Wayne", 1986),
@@ -146,7 +146,7 @@ val df9= spark.read
     .where('best_selling <=2)
 
 
-   df2.show()
+  //  df2.show()
 
 val df3= df.select('product,'category,'revenue,
   max('revenue).over(Window.partitionBy('category)).alias("max_revenue"))
@@ -158,7 +158,7 @@ val df3= df.select('product,'category,'revenue,
   // get particular index of a column
 
   val index= df.rdd.zipWithIndex().filter(x=> x._2 == 5).map(x => x._1)
-  index.foreach(println)
+  //  index.foreach(println)
 
 
   //---------------------------find size of dataframe

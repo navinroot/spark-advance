@@ -32,7 +32,7 @@ object UserAnalytics extends App {
 
   val uniqueProfession= userDf.select('profession).distinct().count()
 
-//  println("unique profession = "+uniqueProfession)
+  // println("unique profession = "+uniqueProfession)
 
   /**
     * how many different users belong to unique professions
@@ -49,7 +49,7 @@ object UserAnalytics extends App {
     */
   val countByGender=userDf.select('gender).groupBy('gender).count()
 
- // countByGender.show()
+  countByGender.show()
 
   /**
     *

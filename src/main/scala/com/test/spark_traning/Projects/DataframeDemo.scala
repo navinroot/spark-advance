@@ -46,7 +46,7 @@ object DataframeDemo extends App {
     */
   val sol1 = postsDf.filter('postTypeId === 1)
     .withColumn("activeTime", datediff('lastActivityDate,'creationDate))
-    .orderBy('activeTime desc)
+    .agg(max('activeTime))
 
  // println(sol1.first())
 
@@ -64,7 +64,7 @@ object DataframeDemo extends App {
 
   /**
     * Window function
-    * find ownerUserid, acceptedAnswerId, score, max score per user
+   * find ownerUserId, acceptedAnswerId, score, max score per user
     *
     *
     */
