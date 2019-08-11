@@ -118,7 +118,7 @@ object SkewJoinUsingSalting extends App {
   val skewJoinResultUsingSalting = skewedLargeRddTransformed.leftOuterJoin(smallRddTransferred)
   println(skewJoinResultUsingSalting.count())
   val t3 = System.nanoTime()
-  println("skew Joining with salting. Elapsed time: " + (t3 - t2) / 1e9 + "second")
+  println("skew Joining with salting. Elapsed time: " + (t3 - t2) / 1e9 + " second")
 
 
   /**
