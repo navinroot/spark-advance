@@ -15,10 +15,9 @@ object LagAPI extends App {
 
   val df = sc.parallelize(Seq((4, 9.0), (3, 7.0), (2, 3.0), (1, 5.0)),2).toDF("id", "num")
     .withColumn("inc_num",lit("A"))
-    .withColumn("lag_num", lag('num,1,0).over(Window.partitionBy().orderBy('inc_num)))
+    .withColumn("lag_num", lag('num, 1, 0).over(Window.orderBy('inc_num)))
       .drop('inc_num)
   df.show()
-
 
 
 
