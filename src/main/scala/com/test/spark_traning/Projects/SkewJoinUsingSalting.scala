@@ -76,11 +76,11 @@ object SkewJoinUsingSalting extends App {
    * normal join without removing skewness
    * total time taken - 37 seconds
    */
-  //  val t0 = System.nanoTime()
-  //  val resultOfJoin = skewedLarggeRdd.leftOuterJoin(smallRdd)
-  //  println(resultOfJoin.count())
-  //  val t1 = System.nanoTime()
-  //  println("skew join without salting. Elapsed time: " + (t1 - t0) / 1e9 + "second")
+  val t0 = System.nanoTime()
+  val resultOfJoin = skewedLarggeRdd.leftOuterJoin(smallRdd)
+  println(resultOfJoin.count())
+  val t1 = System.nanoTime()
+  println("skew join without salting. Elapsed time: " + (t1 - t0) / 1e9 + "second")
 
 
   /**
