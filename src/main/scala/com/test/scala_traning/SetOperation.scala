@@ -1,17 +1,16 @@
 package com.test.scala_traning
 
-import scala.collection.SortedSet
-import scala.collection.immutable.BitSet
+import scala.collection._
 
 object SetOperation extends App{
 
   /**
-    * set contains unique value always
+   * immutable set contains unique value always
     * it doesn't sort elements
     *
     */
 
-  val s = Set(1,2,4,3)
+  val s = immutable.Set(1, 2, 4, 3)
 
   // get first element of set
   println(s.head)
@@ -57,7 +56,7 @@ object SetOperation extends App{
     * it maintains sorted order in with +/- value both
     */
 
-  val sortedSet = SortedSet(2,3,9,8,-1,1,-3)
+  val sortedSet = immutable.SortedSet(2, 3, 9, 8, -1, 1, -3)
   println(sortedSet)
 
   /**
@@ -67,7 +66,30 @@ object SetOperation extends App{
     *  it also maintains sorted order.
     */
 
-  val bitSet = BitSet(2,3,9,8,1)
+  val bitSet = immutable.BitSet(2, 3, 9, 8, 1)
   println(bitSet)
 
+  // --------------------------------- mutable set-------------------------------
+  val ms = mutable.Set(1, 2, 4, 3)
+  // add an element
+  ms.add(5)
+  ms += 6
+  // remove an element
+  ms.remove(4)
+  ms -= 1
+  println("mutable set operation")
+
+  println(ms.mkString(" "))
+
+  // --------------------------------- mutable sorted set ( same for Bit set)-------------------------------
+  val mss = mutable.SortedSet(1, 2, 4, 3)
+  // add an element
+  mss.add(5)
+  mss += 6
+  // remove an element
+  mss.remove(4)
+  mss -= 1
+  println("mutable sorted/bit set operation")
+
+  println(mss.mkString(" "))
 }

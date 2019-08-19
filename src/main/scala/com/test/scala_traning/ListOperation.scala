@@ -5,16 +5,15 @@ import scala.collection.mutable.ListBuffer
 object ListOperation extends App{
 
   /**
-    * All the operation of List
+   * All the operation of immutable List
     *update is not possible in List
     *
     */
 
-  var s = List(1,2,4,3)
+  val s = List(1, 2, 4, 3)
 
   // get first element of List
   println(s.head)
-
   var s1=List(7,9,8,9)
 
   // concat two List
