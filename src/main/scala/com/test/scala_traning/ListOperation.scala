@@ -1,6 +1,6 @@
 package com.test.scala_traning
 
-import scala.collection.mutable.ListBuffer
+import scala.collection._
 
 object ListOperation extends App{
 
@@ -40,8 +40,8 @@ object ListOperation extends App{
     *
     *
     */
-  val a = ListBuffer(1,2,3,4)
-  val b= ListBuffer(5,6,7,8,9)
+  val a = mutable.ListBuffer(1, 2, 3, 4)
+  val b = mutable.ListBuffer(5, 6, 7, 8, 9)
 
   // add new element to ListBuffer
   a += 1
