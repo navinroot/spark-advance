@@ -9,8 +9,9 @@ object MapOperation extends App {
    * immutable map contains only unique keys
    *
    */
-  val mm = mutable.Map("Ayushi" -> 0, "Megha" -> 4)
+
   val m2 = m ++ m1
+  val mm = mutable.Map("Ayushi" -> 0, "Megha" -> 4)
 
   //  m1 += ("navin" -> 4)  [ NOT POSSIBLE BECAUSE OF VAL M1]
   m += ("navin" -> 3)
@@ -37,7 +38,9 @@ object MapOperation extends App {
    */
 
   val sychronizedMap = new mutable.HashMap[String, Int]() with mutable.SynchronizedMap[String, Int]
+
   // add new element to same mutable map
+
   mm.put("Navin", 1)
   mm += ("navin+=" -> 3)
   println(mm.mkString(" "))
