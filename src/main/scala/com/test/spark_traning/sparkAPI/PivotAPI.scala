@@ -60,10 +60,10 @@ object PivotAPI extends App {
     * get the total amount exported to each country of each product,
     * will do group by Product, pivot by Country, and sum of Amount
     */
-  val totalMountPivotExported= df.groupBy('Country).pivot('product)
+  val totalAmountPivotExported = df.groupBy('Country).pivot('product)
     .agg(sum('Amount))
 
-  totalMountPivotExported.show()
+  totalAmountPivotExported.show()
   /**
     * output :
     * +-------+------+-----+-------+------+
@@ -106,7 +106,7 @@ object PivotAPI extends App {
     * Banana|Beans|Carrots|Orange|
     */
 
-    val unpivotDf= totalMountPivotExported.select('Country,
+  val unpivotDf = totalAmountPivotExported.select('Country,
       expr("stack(4,'Banana',Banana,'Beans',Beans,'Carrots',Carrots,'Orange',Orange) " +
         "as (Product,Total)")).where('Total.isNotNull)
 

@@ -18,7 +18,8 @@ object BuildingProjectTimestampPractice extends App {
 
   val dateTimeOperationDF = hvocDf.withColumn("year", year('DateTime))
     .withColumn("month", month('DateTime))
-    .withColumn("day", dayofmonth('DateTime))
+    .withColumn("dayOfMonth", dayofmonth('DateTime))
+    .withColumn("dayOfWeek", dayofweek('DateTime))
     .withColumn("hour", hour('DateTime))
     .withColumn("minute", minute('DateTime))
     .withColumn("second", second('DateTime))
@@ -35,15 +36,15 @@ object BuildingProjectTimestampPractice extends App {
 
   val filterByDateEquality = hvocDf.filter('DateTime === lit("2013-06-01 00:00:01"))
 
-  //filterBydate.show()
+  filterByDateEquality.show()
 
   val filterByDateBetween = hvocDf.filter('DateTime.gt(lit("2013-06-01 00:00:01"))
     and 'DateTime.lt(lit("2013-06-03 00:00:01")))
-
+  //  filterByDateBetween.show()
 
   // FILTER DATE BY MAX DATE TO LAST 7 DAYS DATE  (MAX DATE = LAST MODIFIED DATE)
 
-  //  filterByDateBetween.show()
+
   val lastModifiedDate = hvocDf.agg(max('DateTime) - expr("INTERVAL 7 DAYS")).as[java.sql.Timestamp].collect().head
 
   val filterByLast7DaysFromLastModifiedDate = hvocDf.filter('DateTime.geq(lit(lastModifiedDate)))
@@ -55,6 +56,26 @@ object BuildingProjectTimestampPractice extends App {
   val filerLast7DaysData = hvocDf.filter('DateTime.geq(current_date() - expr("INTERVAL 7 DAYS")))
 
   filerLast7DaysData.show()
+
+  //show last 1 hour data
+
+  val filterLast1HourData = hvocDf
+    .select('DateTime)
+    .withColumn("last 1 hour", (current_timestamp()
+      - expr("INTERVAL 1 HOURS")))
+
+  // filterLast1HourData.show(false)
+
+  /**
+   * get week day of provided DateTime
+   * FORMAT - "E" for week day as Sun Mon Tue
+   * "EEEEE" for week day Wednesday Friday Monday
+   * "u" for week day in numeric format 1 2 3 4 5 6 7  (  same as dayOfWeek function )
+   * "MM/dd/yyyy" for conversion from string to date format
+   */
+  val getWeekDayOfDate = hvocDf.select('DateTime)
+    .withColumn("weekDay", date_format('DateTime, "E"))
+  // getWeekDayOfDate.show()
 
 
 

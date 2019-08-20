@@ -25,12 +25,11 @@ object CombineByKeyAPI extends App {
     ("Juan", "Biology", 60)), 3).map(x=> (x._1,(x._2,x._3)))
 
 
-
-  val intiate = (tuple:(String,Int)) => (tuple._2.toDouble,1)
+  val initiate = (tuple2: (String, Int)) => (tuple2._2.toDouble, 1)
   val combiner= (acc:(Double,Int), value:(String,Int)) => ( acc._1+value._2,acc._2+1)
   val merger= (v1:(Double,Int),v2:(Double,Int))=> (v1._1+v2._1,v1._2+v2._2)
 
-  val findPercentage = studentRDD.combineByKey(intiate,combiner,merger).map(x=> (x._1,x._2._1/x._2._2))
+  val findPercentage = studentRDD.combineByKey(initiate, combiner, merger).map(x => (x._1, x._2._1 / x._2._2))
 
   findPercentage.collect().foreach(println)
 

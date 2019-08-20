@@ -17,12 +17,10 @@ object MapPartitionWithIndexAPI extends App {
   val strippedData= inputData.coalesce(1).mapPartitionsWithIndex( (index, itr) => {
     if(index ==0){
       itr.drop(1)
+    } else {
+      itr
     }
-    itr
   })
- // strippedData.collect().foreach(println)
-
-
-
+  strippedData.collect().foreach(println)
 
 }

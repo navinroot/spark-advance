@@ -64,7 +64,7 @@ object DatasetDemo extends App{
   val df8 = data.toDF("c1", "c2").as[Record]
   import spark.implicits._
 
-  val df1 = df8.rdd.zipWithIndex() //.filter(x=> x._2 ==2)
+  val df1 = df8.rdd.zipWithIndex().filter(x => x._2 == 2).map(x => (x._1.c1, x._1.c2)).toDF().as[Record]
 
   // df1.collect().foreach(println)
 

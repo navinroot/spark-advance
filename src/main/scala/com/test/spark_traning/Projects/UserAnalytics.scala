@@ -39,7 +39,8 @@ object UserAnalytics extends App {
     *
     */
 
-  val differentUserCountEachProfession = userDf.select('id,'profession).groupBy('profession).count().withColumnRenamed("count", "user count")
+  val differentUserCountEachProfession = userDf.select('id, 'profession).groupBy('profession).count()
+    .withColumnRenamed("count", "user count")
 
 //  differentUserCountEachProfession.show()
 

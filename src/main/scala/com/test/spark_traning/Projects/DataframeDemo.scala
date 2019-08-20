@@ -101,7 +101,7 @@ object DataframeDemo extends App {
 
 
   /**
-    *  find the last activity date and the maximum post score per user where max score os greater than 5
+   * find the last activity date and the maximum post score per user where max score is greater than 5
     *
     *
     */
