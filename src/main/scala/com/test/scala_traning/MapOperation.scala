@@ -5,12 +5,17 @@ import scala.collection._
 object MapOperation extends App {
 
   val m1 = immutable.Map("Megha" -> 3, "Ruchi" -> 2, "Becky" -> 4)
+  /**
+   * immutable map contains only unique keys
+   *
+   */
+  val mm = mutable.Map("Ayushi" -> 0, "Megha" -> 4)
   val m2 = m ++ m1
 
   //  m1 += ("navin" -> 4)  [ NOT POSSIBLE BECAUSE OF VAL M1]
   m += ("navin" -> 3)
   m -= ("navin")
-  val mm = mutable.Map("Ayushi" -> 0, "Megha" -> 4)
+
 
   m2.foreach {
     case (key, value) => println("key =" + key + ", value = " + value)
@@ -27,12 +32,11 @@ object MapOperation extends App {
    */
   println("mutable map started")
   /**
-   * immutable map contains only unique keys
+   * synchronized mutable thread safe map
    *
    */
 
-  var m = immutable.Map("Ayushi" -> 0, "Megha" -> 4)
-
+  val sychronizedMap = new mutable.HashMap[String, Int]() with mutable.SynchronizedMap[String, Int]
   // add new element to same mutable map
   mm.put("Navin", 1)
   mm += ("navin+=" -> 3)
@@ -53,7 +57,8 @@ object MapOperation extends App {
 
   // clear all the element for mutable map
   mm.clear()
-
-
+  var m = immutable.Map("Ayushi" -> 0, "Megha" -> 4)
+  sychronizedMap.put("navin", 1)
+  println(sychronizedMap.mkString(" "))
 
 }
