@@ -5,6 +5,7 @@
 .settings/
 **/bin/
 **/target/
+**/.attach_pid*
 **/.settings/
 **/.classpath
 **/.project
