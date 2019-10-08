@@ -15,7 +15,7 @@ object CoalesceAPI extends App {
     .option("header",true)
     .load("/home/navin/workspace/git/spark-advance/src/main/resources/coalesce_data.csv")
 
- // dataDF.show()
+  dataDF.show()
   /**
    * output:
    * +---+--------+--------+--------+

@@ -116,12 +116,12 @@ val df9= spark.read
     StructField("matchId", IntegerType, nullable = false),
     StructField("player1", StringType, nullable = false),
     StructField("player2", StringType, nullable = false)))
-  ).as('matches)
+  )
 
   val playersDf = spark.createDataFrame(players, StructType(Seq(
     StructField("player", StringType, nullable = false),
     StructField("birthYear", IntegerType, nullable = false)
-  ))).as('players)
+  )))
 
   val joinResult= matchesDf.join(playersDf,playersDf.col("player")===matchesDf.col("player1"))
       .drop('player).withColumnRenamed("birthYear","birth_p1")
