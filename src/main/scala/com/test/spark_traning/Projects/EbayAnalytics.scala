@@ -26,6 +26,41 @@ object EbayAnalytics extends App {
     )
   )
 
+  /**
+   *  Nested Schema example
+   *
+   * |-- col1: string (nullable = true)
+   * |-- col2: string (nullable = true)
+   * |-- col3: struct (nullable = true)
+   * |    |-- col3_1: struct (nullable = true)
+   * |    |    |-- colA: string (nullable = true)
+   * |    |-- col3_2: struct (nullable = true)
+   * |    |    |-- colB: string (nullable = true)
+   * |-- col4: string (nullable = true)
+   * |-- col5: string (nullable = true)
+   *
+   *
+
+  val schema = StructType(Seq(
+                           StructField("col1",IntegerType,false),
+                           StructField("col2",StringType,false),
+                           StructField("col3",StructType(Seq(
+                                              StructField("col3_1",StructType(Seq(
+                                                                  StructField("colA",StringType,false)
+                                                                  ))),
+                                              StructField("col3_2",StructType(Seq(
+					                                              StructField("colB",StringType,false)
+					                                              )))
+					                                         ))),
+                           StructField("col4",StringType,false),
+                           StructField("col5",StringType,false)))
+
+   *
+   *
+   *
+   *
+   */
+
   val auctionDf= spark.read.schema(ebaySchema).option("header",false)
     .csv("/home/navin/workspace/intelliz-workspace/nestedArticture/src/main/resources/ebay.csv")
 

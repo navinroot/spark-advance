@@ -18,6 +18,7 @@ object MapOperation extends App {
   m -= ("navin")
 
 
+
   m2.foreach {
     case (key, value) => println("key =" + key + ", value = " + value)
   }

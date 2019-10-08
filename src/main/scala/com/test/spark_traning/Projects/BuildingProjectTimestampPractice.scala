@@ -17,7 +17,9 @@ object BuildingProjectTimestampPractice extends App {
 
 
   val dateTimeOperationDF = hvocDf.withColumn("year", year('DateTime))
+    .withColumn("current_time", current_timestamp())
     .withColumn("month", month('DateTime))
+    .withColumn("dayOfYear", dayofyear('DateTime))
     .withColumn("dayOfMonth", dayofmonth('DateTime))
     .withColumn("dayOfWeek", dayofweek('DateTime))
     .withColumn("hour", hour('DateTime))
@@ -26,12 +28,12 @@ object BuildingProjectTimestampPractice extends App {
     .withColumn("twoDaySub", date_sub('DateTime, 2))
     .withColumn("twoMonthSub", add_months('DateTime, -2))
     .withColumn("oneYearAdd", add_months('DateTime, 12))
-    .withColumn("addOneSecond", 'DateTime - expr("INTERVAL 1 YEARS"))
-    .withColumn("addOneSecond", 'DateTime - expr("INTERVAL 1 MONTHS"))
-    .withColumn("addOneSecond", 'DateTime - expr("INTERVAL 1 DAYS"))
-    .withColumn("addOneSecond", 'DateTime + expr("INTERVAL 1 HOURS"))
-    .withColumn("addOneSecond", 'DateTime + expr("INTERVAL 1 MINUTES"))
-    .withColumn("addOneSecond", 'DateTime + expr("INTERVAL 1 SECONDS"))
+    .withColumn("subOneYear", 'DateTime - expr("INTERVAL 1 YEARS"))
+    .withColumn("subOneMonth", 'DateTime - expr("INTERVAL 1 MONTHS"))
+    .withColumn("subOneDay", 'DateTime - expr("INTERVAL 1 DAYS"))
+    .withColumn("addOneHours", 'DateTime + expr("INTERVAL 1 HOURS"))
+    .withColumn("addOneMinutes", 'DateTime + expr("INTERVAL 1 MINUTES"))
+    .withColumn("addOneSeconds", 'DateTime + expr("INTERVAL 1 SECONDS"))
 
 
   val filterByDateEquality = hvocDf.filter('DateTime === lit("2013-06-01 00:00:01"))
