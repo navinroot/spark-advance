@@ -11,6 +11,7 @@ object SetOperation extends App{
     */
 
   val s = immutable.Set(1, 2, 4, 3)
+  println("s[2] = "+ s(2))
 
   // get first element of set
   println(s.head)
