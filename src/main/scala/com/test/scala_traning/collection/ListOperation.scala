@@ -1,6 +1,6 @@
-package com.test.scala_traning
+package com.test.scala_traning.collection
 
-import scala.collection._
+import scala.collection.mutable
 
 object ListOperation extends App{
 

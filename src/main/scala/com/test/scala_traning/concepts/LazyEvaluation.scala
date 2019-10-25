@@ -1,4 +1,4 @@
-package com.test.scala_traning
+package com.test.scala_traning.concepts
 
 object LazyEvaluation extends App{
 

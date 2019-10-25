@@ -1,6 +1,4 @@
-package com.test.scala_traning
-
-import scala.collection.mutable._
+package com.test.scala_traning.collection
 
 object ArrayOperation extends App {
 
