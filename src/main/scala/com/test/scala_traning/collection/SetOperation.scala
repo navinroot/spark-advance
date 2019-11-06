@@ -17,6 +17,7 @@ object SetOperation extends App{
   println(s.head)
 
   var s1=Set(7,9,8,9)
+  s1 +=1
 
   // concat two sets
 
@@ -70,7 +71,10 @@ object SetOperation extends App{
   val bitSet = immutable.BitSet(2, 3, 9, 8, 1)
   println(bitSet)
 
-  // --------------------------------- mutable set-------------------------------
+  /**
+   *  --------------------------------- mutable set-------------------------------
+   */
+
   val ms = mutable.Set(1, 2, 4, 3)
   // add an element
   ms.add(5)
@@ -78,6 +82,8 @@ object SetOperation extends App{
   // remove an element
   ms.remove(4)
   ms -= 1
+  ms++=s1
+  ms--=s1
   println("mutable set operation")
 
   println(ms.mkString(" "))

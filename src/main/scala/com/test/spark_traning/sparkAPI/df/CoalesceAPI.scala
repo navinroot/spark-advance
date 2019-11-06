@@ -1,7 +1,7 @@
-package com.test.spark_traning.sparkAPI
+package com.test.spark_traning.sparkAPI.df
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions._
+import org.apache.spark.sql.functions.coalesce
 
 object CoalesceAPI extends App {
 

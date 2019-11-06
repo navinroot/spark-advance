@@ -1,4 +1,4 @@
-package com.test.spark_traning.sparkAPI
+package com.test.spark_traning.sparkAPI.df
 
 import org.apache.spark.sql.SparkSession
 
@@ -19,7 +19,6 @@ import org.apache.spark.sql.SparkSession
 object DealingWithNull extends App {
 
   val spark = SparkSession.builder().appName("join using array contains").master("local[*]").getOrCreate()
-  import spark.implicits._
 
   val df  = spark.read.option("header",true).option("inferSchema",true)
     .csv("/home/navin/workspace/git/spark-advance/src/main/resources/dataWithNullValue.csv")

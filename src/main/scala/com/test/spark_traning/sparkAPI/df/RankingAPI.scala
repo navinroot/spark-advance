@@ -1,9 +1,9 @@
-package com.test.spark_traning.sparkAPI
+package com.test.spark_traning.sparkAPI.df
 
 import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.{Row, SparkSession}
-import org.apache.spark.sql.functions._
+import org.apache.spark.sql.functions.{dense_rank, monotonically_increasing_id, rank, row_number}
 import org.apache.spark.sql.types.LongType
+import org.apache.spark.sql.{Row, SparkSession}
 
 object RankingAPI extends App {
 
