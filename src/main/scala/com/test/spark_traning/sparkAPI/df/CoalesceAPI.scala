@@ -34,8 +34,9 @@ object CoalesceAPI extends App {
    *  coalesce function - Returns the first column's value that is not NULL,
    *  or NULL if all v's are NULL. This function can take any number of arguments.
    */
+    val logicColumn= dataDF.columns.filter(_.startsWith("logic_")).map(dataDF.col)
 
-  val coalesceDf= dataDF.select('id,coalesce($"logic_01",$"logic_02",$"logic_03").as("logic"))
+  val coalesceDf= dataDF.select('id,coalesce(logicColumn: _*).as("logic"))
 
   coalesceDf.show()
   /**
