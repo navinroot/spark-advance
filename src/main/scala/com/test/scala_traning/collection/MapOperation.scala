@@ -16,11 +16,17 @@ object MapOperation extends App {
   //  m1 += ("navin" -> 4)  [ NOT POSSIBLE BECAUSE OF VAL M1]
   m += ("navin" -> 3)
   m -= ("navin")
+  m.getOrElse("navin","Navin Not found")
 
 
-
+  // iterate on map using lambda
   m2.foreach {
     case (key, value) => println("key =" + key + ", value = " + value)
+  }
+
+  // iterate on map using normal for loop
+  for( (k,v) <- m2){
+    println("key =" + k + ", value = " + v)
   }
 
   // check if a key is present
@@ -36,7 +42,7 @@ object MapOperation extends App {
   val mm = mutable.Map("Ayushi" -> 0, "Megha" -> 4)
 
   // add new element to same mutable map
-
+  mm.put("Megha", 3)
   mm.put("Navin", 1)
   mm += ("navin+=" -> 3)
   println(mm.mkString(" "))

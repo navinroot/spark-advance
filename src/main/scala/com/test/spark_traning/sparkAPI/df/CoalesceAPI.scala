@@ -15,7 +15,7 @@ object CoalesceAPI extends App {
     .option("header",true)
     .load("/home/navin/workspace/git/spark-advance/src/main/resources/coalesce_data.csv")
 
-  dataDF.show()
+  //dataDF.show()
   /**
    * output:
    * +---+--------+--------+--------+
@@ -27,7 +27,7 @@ object CoalesceAPI extends App {
    * |  4|    null|    null|       d|
    * +---+--------+--------+--------+
    */
-
+  dataDF.createOrReplaceTempView("dataDf")
   /**
    *  coalesce all the logic* column to one column logic
    *
@@ -36,9 +36,11 @@ object CoalesceAPI extends App {
    */
     val logicColumn= dataDF.columns.filter(_.startsWith("logic_")).map(dataDF.col)
 
+
+
   val coalesceDf= dataDF.select('id,coalesce(logicColumn: _*).as("logic"))
 
-  coalesceDf.show()
+ // coalesceDf.show()
   /**
    * output:
    * +---+-----+
@@ -51,4 +53,7 @@ object CoalesceAPI extends App {
    * +---+-----+
    *
    */
+  val logicColumnInString=logicColumn.mkString(", ")
+  val coalesceDfSql = spark.sql(s"select id, coalesce($logicColumnInString) as logic from dataDf")
+  coalesceDfSql.show()
 }

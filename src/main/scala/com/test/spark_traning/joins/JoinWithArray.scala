@@ -1,4 +1,4 @@
-package com.test.spark_traning.sparkAPI.df
+package com.test.spark_traning.joins
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{array_contains, explode}

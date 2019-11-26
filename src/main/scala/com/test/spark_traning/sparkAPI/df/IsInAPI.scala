@@ -1,5 +1,6 @@
 package com.test.spark_traning.sparkAPI.df
 
+import com.test.common.ResourcePath
 import org.apache.spark.sql.SparkSession
 
 object IsInAPI extends App {
@@ -12,9 +13,11 @@ object IsInAPI extends App {
   val df= spark.read
     .option("header",true)
     .option("inferSchema",true)
-    .csv("/home/navin/workspace/intelliz-workspace/nestedArticture/src/main/resources/1.csv")
+    .csv(ResourcePath.resourcePath+ResourcePath.pathSeperator+"1.csv")
 
  // df.show()
+
+  df.createOrReplaceTempView("df")
 
   /**
     * +----------+--------+-------+
@@ -37,8 +40,11 @@ object IsInAPI extends App {
 
   // use case 1
   val filterDfUsingIsIn= df.filter('revenue.isin(revenueList:_*))
+  val revenueListSql = revenueList.mkString(", ")
+  val filterDfUsingIsInSql = spark.sql(s"""select * from df where revenue in ($revenueListSql)""")
 
  //  filterDfUsingIsIn.show()
+  filterDfUsingIsInSql.show()
 
   // use case 2
   val filterdf = df.filter(('revenue.isin(6000,5000)))
@@ -49,7 +55,7 @@ object IsInAPI extends App {
 
   val filterDfUsingIsInCollection = df.filter('revenue.isInCollection(revenueList))
 
-  filterDfUsingIsInCollection.show()
+  //filterDfUsingIsInCollection.show()
 
 
   /**

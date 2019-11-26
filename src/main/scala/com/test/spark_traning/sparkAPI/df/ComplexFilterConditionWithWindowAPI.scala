@@ -41,6 +41,7 @@ object ComplexFilterConditionWithWindowAPI extends App {
     ("C", "UV", Timestamp.valueOf("2019-07-02 00:00:00"))
   ).toDF("key", "statusCode", "statusTimestamp")
 
+  df.createOrReplaceTempView("df")
   /**
    * solution
    * 1. Filter the dataset for statusCode "UV" or "OA" only
@@ -61,9 +62,33 @@ object ComplexFilterConditionWithWindowAPI extends App {
       coalesce(lead('statusCode,2,"").over(w))
 
     ))
+  //  df1.show()
 
-  df1.show()
+  /**
+   * df1 output:
+   * +---+----------+-------------------+-------------+
+   * |key|statusCode|    statusTimestamp|prevCurrNext2|
+   * +---+----------+-------------------+-------------+
+   * |  B|        OA|2019-06-25 00:00:00|        #OA##|
+   * |  C|        OA|2019-06-30 00:00:00|      #OA#UV#|
+   * |  C|        UV|2019-07-02 00:00:00|      OA#UV##|
+   * |  A|        OA|2019-05-20 00:00:00|    #OA#UV#OA|
+   * |  A|        UV|2019-06-22 00:00:00|  OA#UV#OA#OA|
+   * |  A|        OA|2019-07-01 00:00:00|    UV#OA#OA#|
+   * |  A|        OA|2019-07-03 00:00:00|      OA#OA##|
+   * +---+----------+-------------------+-------------+
+   */
+
+  val df1Sql =spark.sql(
+    """select a.*,concat(coalesce(lag(a.statusCode, 1, "") over(partition by a.key order by a.statusTimestamp asc)),
+      |"#",coalesce(a.statusCode),"#",
+      |coalesce(lead(a.statusCode,1,"") over(partition by a.key order by a.statusTimestamp asc)),"#",
+      |coalesce(lead(a.statusCode,2,"") over(partition by a.key order by a.statusTimestamp asc))) as prevCurrNext2
+      |from( select * from df where
+      |statusCode ="OA" or statusCode ="UV") a""".stripMargin)
 
 
+
+  df1Sql.show()
 
 }
