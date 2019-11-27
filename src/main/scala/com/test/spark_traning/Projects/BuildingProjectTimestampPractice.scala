@@ -71,7 +71,7 @@ object BuildingProjectTimestampPractice extends App {
   /**
    * get week day of provided DateTime
    * FORMAT - "E" for week day as Sun Mon Tue
-   * "EEEEE" for week day Wednesday Friday Monday
+   * "EEEEE" for week day Sunday Monday Tuesday
    * "u" for week day in numeric format 1 2 3 4 5 6 7  (  same as dayOfWeek function )
    * "MM/dd/yyyy" for conversion from string to date format
    */

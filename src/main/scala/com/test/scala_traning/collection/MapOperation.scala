@@ -1,5 +1,6 @@
 package com.test.scala_traning.collection
 
+import scala.collection.immutable.SortedMap
 import scala.collection.{immutable, mutable}
 
 object MapOperation extends App {
@@ -12,7 +13,6 @@ object MapOperation extends App {
    */
 
   val m2 = m ++ m1
-
   //  m1 += ("navin" -> 4)  [ NOT POSSIBLE BECAUSE OF VAL M1]
   m += ("navin" -> 3)
   m -= ("navin")
@@ -62,6 +62,8 @@ object MapOperation extends App {
 
   // clear all the element for mutable map
   mm.clear()
+
+
 
 
   /**

@@ -13,6 +13,11 @@ object EitherLeftRight extends App {
     else Right(x / y)
   }
 
+  def divideXByYUsingOption(x: Int, y: Int): Option[Int] = {
+    if (y == 0) None
+    else Some(x / y)
+  }
+
   // a few different ways to use Either, Left, and Right
   println(divideXByY(1, 0))
   println(divideXByY(1, 1))
@@ -20,5 +25,7 @@ object EitherLeftRight extends App {
     case Left(s) => println("Answer: " + s)
     case Right(s) => println("Answer: " + s)
   }
+
+  divideXByYUsingOption(1,0).getOrElse(0)
 
 }

@@ -17,7 +17,7 @@ object WhenApi extends App {
 
   val df1=df.withColumn("new_col", when('A === 4, 4)
   .when('A === 2 or 'A=== 6, 2)
-  .when('A===56 and 'A===123, 56)
+  .when('A===56 and 'A===123 and 'A =!= 124, 56)
   .otherwise(100))
 
   df1.show()

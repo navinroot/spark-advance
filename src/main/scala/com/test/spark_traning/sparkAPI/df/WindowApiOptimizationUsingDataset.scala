@@ -26,9 +26,12 @@ object WindowApiOptimizationUsingDataset extends App {
   // Approach 1
   val w = Window.partitionBy('Hour).orderBy('TotalValue desc)
 
-  val dfWithMax = df.withColumn("rn",row_number.over(w)).where('rn ===1).drop('rn)
+  val dfWithMax = df.withColumn("rn",row_number().over(w)).where('rn ===1).drop('rn)
+  // dfWithMax.show()
 
- // dfWithMax.show()
+
+  val dfWithMaxUsingGroupBy = df.groupBy('Hour).agg(max('TotalValue))
+// dfWithMaxUsingGroupBy.show()
 
 
   //Approach 2 using Dataset mapside join approach

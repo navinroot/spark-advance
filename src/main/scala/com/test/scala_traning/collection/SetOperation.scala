@@ -16,7 +16,7 @@ object SetOperation extends App{
   // get first element of set
   println(s.head)
 
-  var s1=Set(7,9,8,9)
+  var s1=immutable.Set(7,9,8,9)
   s1 +=1
 
   // concat two sets

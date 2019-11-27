@@ -15,7 +15,6 @@ object ListOperation extends App{
   // get first element of List
   println(s.head)
   var s1=List(7,9,8,9)
-
   // concat two List
 
   val s2= s ::: s1   // or s++s1

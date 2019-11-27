@@ -1,7 +1,7 @@
 package com.test.spark_traning.joins
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions.{array_contains, explode}
+import org.apache.spark.sql.functions._
 
 object JoinWithArray extends App {
 
@@ -33,7 +33,8 @@ object JoinWithArray extends App {
    * now merge the col1 value by col2
     */
 
-  //joinUsingExplode.groupBy('col2).agg(collect_list('col1).as("col1_array")).show()
+  joinUsingExplode.groupBy('col2).agg(sort_array(collect_list('col1),false)
+    .as("col1_array")).show()
 
 
 }
