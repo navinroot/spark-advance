@@ -3,6 +3,7 @@ package com.test.spark_traning.sparkAPI.df
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types.LongType
 
 /**
  * find max of total value for each hour
@@ -45,6 +46,13 @@ object WindowApiOptimizationUsingDataset extends App {
 
  // dsWithMax.show()
 
+
+  /**
+   * change datatype
+   *
+   */
+  val df1=df.withColumn("HourInLong",'Hour.cast(LongType))
+  df1.printSchema()
 
 }
 

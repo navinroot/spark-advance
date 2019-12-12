@@ -14,6 +14,7 @@ object ListOperation extends App{
 
   // get first element of List
   println(s.head)
+
   var s1=List(7,9,8,9)
   // concat two List
 
@@ -44,6 +45,7 @@ object ListOperation extends App{
 
   // add new element to ListBuffer
   a += 1
+  a.update(0,2)
   print("printing ListBuffer after adding new element =")
   a.foreach(print)
 
@@ -57,6 +59,7 @@ object ListOperation extends App{
   println()
   print("printing the sorted ListBuffer = ")
   a.sorted(Ordering.Int.reverse).foreach(print)
+  a.sortWith((x,y)=> x<y)
 
 
 

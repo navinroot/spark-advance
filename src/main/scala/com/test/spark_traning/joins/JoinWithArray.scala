@@ -12,6 +12,8 @@ object JoinWithArray extends App {
 
   val right = Seq((Array(1, 2), "Yes"),(Array(3),"No")).toDF("col1_array", "col2")
 
+
+
   /**
    * Join using array_contains for optimization
    */

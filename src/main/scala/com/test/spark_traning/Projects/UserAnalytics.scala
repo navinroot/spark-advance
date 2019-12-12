@@ -1,5 +1,6 @@
 package com.test.spark_traning.Projects
 
+import com.test.common.ResourcePath
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 
@@ -21,7 +22,7 @@ object UserAnalytics extends App {
     ))
 
   val userDf= spark.read.schema(schema).option("header", true)
-    .csv("/home/navin/workspace/intelliz-workspace/nestedArticture/src/main/resources/userData.csv")
+    .csv(ResourcePath.resourcePath+ResourcePath.pathSeperator+"userData.csv")
 
   //userDf.show()
 
@@ -31,6 +32,8 @@ object UserAnalytics extends App {
     */
 
   val uniqueProfession= userDf.select('profession).distinct().count()
+
+  val uniqueProfession1= userDf.select('profession).dropDuplicates().count()
 
   // println("unique profession = "+uniqueProfession)
 

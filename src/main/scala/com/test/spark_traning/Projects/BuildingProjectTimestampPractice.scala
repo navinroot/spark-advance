@@ -19,6 +19,7 @@ object BuildingProjectTimestampPractice extends App {
   val dateTimeOperationDF = hvocDf.withColumn("year", year('DateTime))
     .withColumn("current_time", current_timestamp())
     .withColumn("month", month('DateTime))
+    .withColumn("lastDayOfMonth",last_day('DateTime))
     .withColumn("dayOfYear", dayofyear('DateTime))
     .withColumn("dayOfMonth", dayofmonth('DateTime))
     .withColumn("dayOfWeek", dayofweek('DateTime))

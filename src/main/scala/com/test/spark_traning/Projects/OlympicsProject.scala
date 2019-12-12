@@ -11,7 +11,8 @@ object OlympicsProject extends App {
 
 
   val olymSummerDf = spark.read.option("header",true).option("inferSchema",true)
-    .csv("/home/navin/workspace/dataset/OTHERS/OLYMPICS/OLYMPICS SUMMER.csv").withColumnRenamed("Country","Code")
+    .csv("/home/navin/workspace/dataset/OTHERS/OLYMPICS/OLYMPICS SUMMER.csv")
+    .withColumnRenamed("Country","Code")
 
  // olymSummerDf.show()
 
@@ -20,12 +21,14 @@ object OlympicsProject extends App {
 
 //  countryDetailsDf.show()
 
-  val totalMedalWonByEachCountyInSwimming = olymSummerDf.filter('Discipline === "Swimming").groupBy('Code)
+  val totalMedalWonByEachCountyInSwimming = olymSummerDf.filter('Discipline === "Swimming")
+    .groupBy('Code)
     .count().join(countryDetailsDf, Seq("Code"))
       .select('Country,'count).withColumnRenamed("count","MedalCount")
 
   //question 1 solution - (find the total medal won by each country)
- // totalMedalWonByEachCountyInSwimming.coalesce(1).write.option("header",true).csv("/home/navin/workspace/dataset/OTHERS/OLYMPICS/Q1Answer")
+ // totalMedalWonByEachCountyInSwimming.coalesce(1).write.option("header",true)
+  // .csv("/home/navin/workspace/dataset/OTHERS/OLYMPICS/Q1Answer")
 
   val totalMedalWonByIndiaYearWise = olymSummerDf.filter('Code === "IND").select('Year, 'Medal)
     .groupBy('Year, 'Medal).count()

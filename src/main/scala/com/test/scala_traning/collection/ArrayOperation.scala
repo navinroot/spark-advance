@@ -5,7 +5,21 @@ import scala.collection.mutable.ArrayBuffer
 object ArrayOperation extends App {
 
   /**
-    * in Array deletion is not possible because Array is immutable
+    * Both Array and ArrayBuffer are mutable, which means that you can modify elements at particular indexes: a(i) = e
+   *
+   * ArrayBuffer is resizable, Array isn't. If you append an element to an ArrayBuffer, it gets larger. If you try to
+   * append an element to an Array, you get a new array. Therefore to use Arrays efficiently, you must know its size
+   * beforehand.
+   *
+   * Arrays are implemented on JVM level and are the only non-erased generic type. This means that they are the most
+   * efficient way to store sequences of objects – no extra memory overhead, and some operations are implemented as
+   * single JVM opcodes.
+   *
+   * ArrayBuffer is implemented by having an Array internally, and allocating a new one if needed. Appending is
+   * usually fast, unless it hits a limit and resizes the array – but it does it in such a way, that the overall
+   * effect is negligible, so don't worry. Prepending is implemented as moving all elements to the right and
+   * setting the new one as the 0th element and it's therefore slow. Appending n elements in a loop is
+   * efficient (O(n)), prepending them is not (O(n²)).
     *
     *
     */

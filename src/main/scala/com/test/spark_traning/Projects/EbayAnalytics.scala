@@ -1,5 +1,6 @@
 package com.test.spark_traning.Projects
 
+import com.test.common.ResourcePath
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
@@ -62,7 +63,7 @@ object EbayAnalytics extends App {
    */
 
   val auctionDf= spark.read.schema(ebaySchema).option("header",false)
-    .csv("/home/navin/workspace/intelliz-workspace/nestedArticture/src/main/resources/ebay.csv")
+    .csv(ResourcePath.resourcePath+ResourcePath.pathSeperator+"ebay.csv")
 
  // auctionDf.show()
 
@@ -79,7 +80,8 @@ object EbayAnalytics extends App {
     *
     */
 
-  val bidPerItem= auctionDf.select('item,'auctionid).groupBy('auctionid,'item).count()
+  val bidPerItem= auctionDf.select('item,'auctionid).groupBy('auctionid,'item)
+    .count()
 
 //  bidPerItem.show()
 
@@ -87,7 +89,8 @@ object EbayAnalytics extends App {
     *  What's the min number of bids per item? what's the average? what's the max?
     */
 
-  val bidStates = auctionDf.groupBy('auctionid, 'item).count().agg(min('count), max('count), avg('count))
+  val bidStates = auctionDf.groupBy('auctionid, 'item).count()
+    .agg(min('count), max('count), avg('count))
 
   bidStates.show()
 
@@ -105,7 +108,7 @@ object EbayAnalytics extends App {
     */
 
   val sfpdDf= spark.read.option("header", true).option("inferSchema", true)
-    .csv("/home/navin/workspace/intelliz-workspace/nestedArticture/src/main/resources/sfpd.csv")
+    .csv(ResourcePath.resourcePath+ResourcePath.pathSeperator+"sfpd.csv")
 
 //  sfpdDf.show()
 

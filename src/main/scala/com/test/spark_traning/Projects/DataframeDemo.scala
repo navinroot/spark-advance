@@ -10,7 +10,8 @@ import org.apache.spark.sql.functions.{avg, count, datediff, max}
  */
 object DataframeDemo extends App {
 
-  val spark= SparkSession.builder().appName("chapter 3 program").master("local[*]").getOrCreate()
+  val spark= SparkSession.builder().appName("chapter 3 program")
+    .master("local[*]").getOrCreate()
 
   val sc= spark.sparkContext
   import spark.implicits._
@@ -83,7 +84,8 @@ object DataframeDemo extends App {
     *
     */
 
-  val sol4 = postsDf.groupBy('ownerUserId,'tags,'postTypeId).count().orderBy('ownerUserId desc)
+  val sol4 = postsDf.groupBy('ownerUserId,'tags,'postTypeId).count()
+    .orderBy('ownerUserId desc)
 
  // println(sol4.show())
 
