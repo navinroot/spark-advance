@@ -1,0 +1,185 @@
+2.Find date wise Sales in USD
+Sales		
+sales_date	sales_amount	currency
+01-Jan-16	500	INR
+01-Jan-16	100	GBP
+02-Jan-16	1000	INR
+02-Jan-16	150	GBP
+03-Jan-16	1500	INR
+
+Exchange			
+source_currency	target_currency	exchange_rate	eff_start_date eff_end_date
+INR	USD	0.014	31-Dec-15
+INR	USD	0.015	02-Jan-16
+GBP	USD	1.32	20-Dec-15
+GBP	USD	1.3	    01-Jan-16
+GBP	USD	1.35	10-Jan-16
+
+
+
+var exchangeDf = 
+var salesDf =
+
+exchangeDf = exchangeDf.withColumn("eff_end_date", lead(col("eff_start_date")).over(Window.partitionBy(col("source_currency"))
+.orderBy(col("eff_start_date").ASC)))
+.withColumn("eff_end_date", col("eff_end_date") - expr("INTERNAL 1 DAYS")
+
+
+
+var mergedDf = salesDf.join(exchangeDf, salesDf.col("sales_date") >= exchangeDf.col("eff_start_date") 
+&& salesDf.col("sales_date") <= exchangeDf.col("eff_end_date"), "left")
+select("sales_date","sales_amount",	"currency", "exchange_rate")
+.withColumn("sales_amount_in_dollar", col("sales_amount") * col("exchange_rate"))
+
+
+
+Display students whose total marks of the current year is greater or equal to previous year.
+Dont assume the current year is always the max year of every student 
+
+Student_Name	Total_Marks	Year
+Rahul	90	2010
+Sanjay	80	2010
+Mohan	70	2010
+Rahul	90	2011
+Sanjay	85	2011
+Mohan	65	2011
+Rahul	80	2012
+Sanjay	80	2012
+Mohan	90	2012
+
+
+Rahul	90	2010 => Rahul 90 2010
+Rahul	90	2011  = > Rahul 90 2011
+Rahul	80	2012
+
+
+select Student_Name, Total_Marks, Year
+case
+when 
+Total_Marks_prev_year
+from
+table A1 left join table A2
+where
+A1.Student_Name = A2.Student_Name
+and A1.Year = A2.Year-1
+
+
+
+
+rdms to hive
+
+cdc -> inserts updates 
+
+src_rcv_ts src_upd_ts 
+2022-04-06    null 
+2022-04-06    2022-04-08
+
+first tell me logic to extarct the incremental records 
+
+incremental logic without using merge statements
+
+
+val last_modified_ts =
+
+val cdcDf1 = cdfDf.filter(col("src_upd_ts").geq(lit(last_modified_ts)) or col("src_rcv_ts").geq(lit("last_modified_ts")))
+
+
+cdcDf1.write.option("mode", "append").saveAsTable("table_name")                .
+
+--------------------------------------------
+
+
+Given a timeseries clickstream hit data of user activity, enrich the data with session id and visit number.
+A session will be defined as 30 mins of inactivity and maximum 2 hours.
+For Batch use case, the source and sink are hive tables. Read the data from hive, use spark batch  to do the computation. Please don't use direct spark sql and save the results in parquet with enriched data.
+
+We want to associate all these click with relevant user session.
+
+Please see below some sample records. 
+timestamp userid
+2018-01-01T11:00:00Z u1
+2018-01-01T11:00:00Z u2
+2018-01-02T11:00:00Z u2
+2018-01-01T12:00:00Z u1
+2018-01-01T12:15:00Z u1
+
+2018-01-01T11:00:00Z u1,u1_s1
+2018-01-01T12:00:00Z u1,u1_s2
+2018-01-01T11:00:00Z u2,u2_s1
+2018-01-02T11:00:00Z u2,u2_s2
+2018-01-01T12:15:00Z u1,u1_s2
+
+
+
+df.withColumn("prev_timestamp", lag(col("timestamp")).over(Window.partitionBy(userid).orderBy("timestamp".ASC)))
+withColumn("session_num", 
+when(minute(date_diff(col("timestamp"), col("prev_timestamp"))) > 30, lit(1) )
+.otherwise(lit(0))
+)
+cithColumn("session_running_sum", sum(col(session_num)).over(Window.partitionBy(userid).orderBy("timestamp".ASC)))
+.withColumn("session_id", concat(col("user_id"), lit("_"), col("session_running_sum")))
+
+
+Suppose Consumer X has read 50 offsets from the topics and it got failed then how consumer  Y will pick up offsets and how does it stores the data and what is the mechanism we need configure to achieve this.
+
+
+order
+ord_id, cust_id, order_Date
+od1, ct1, 5-JAN-2022
+od2, ct2
+od1111, ct1, 8-APR-2022
+
+
+
+cust
+cust_id, cust_name,  cust_add
+ct1, ct1_name,ct1_add
+ct2, ct2_name,ct2_add
+
+
+
+
+cust_id, cust_name,
+ct1, ct1_name,ct1_add, 1-JAN-2022, 
+ct2, ct2_name,ct2_add, 2-JAN-2022,
+ct1, ct1_name,ct1_add, 8-APR-2022,
+
+
+Address
+id, cust_id, cust_add, received_at, end_at
+1, ct1_add, ct1, ct1_add, 1-JAN-2022, 7-APR-2022
+2, ct1_add, ct1, ct1_add, 8-APR-2022,
+
+
+How do you decide that you need to keep it as 1 dimension or split it into 2 dimensions? Take for example dim product: there are attributes which are at product code level and there are attributes which are at product group level. Should we keep them all in 1 dimension (product) or split them into 2 dimensions (product and product group)?
+
+
+When we run group by on dataframe (user_id,amount_id) on col userid 
+Find total amount for each user using below table
+User,amt
+A1, 1000
+A1,1322
+A2,43233
+A1,3222
+----------
+SCD
+----------
+
+word count 
+
+groupByKey
+
+
+
+executor: 500
+cores: 5
+
+partiio: 200
+
+
+split -> flatMap -> map -> groupByKey 
+
+
+task = 4
+stage = 2
+job => 
